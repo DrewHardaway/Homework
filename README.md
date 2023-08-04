@@ -11,6 +11,6 @@ Hi my name is Andrew Hardaway. I am military registered nurse transitioning from
 
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8733917/
 
-https://www.xenonstack.com/hubfs/healthcare-analytics-platform-xenonstack.png
+https://www.scnsoft.com/blog-pictures/healthcare/health_data_analysis-02_3.png
 
 Finding data about healthcare can help us live longer and healthier. I hope to use my clinical knowledge to help identify area that need highlight. 
