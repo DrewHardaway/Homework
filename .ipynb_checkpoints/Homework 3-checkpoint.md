@@ -17,5 +17,3 @@
 * except
 * global
 * if
-
-# Write a multi-line comment with your name, favorite food, and dream job on 3 different lines
