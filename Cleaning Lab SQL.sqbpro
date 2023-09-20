@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="/Users/andrewhardaway/code/SavvyCoders/Capstone/Classwork SQL 9-12.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="1531"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,6:mainevCars"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="SQLCleaningLab" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="65"/><column index="2" value="233"/><column index="3" value="86"/><column index="4" value="89"/><column index="5" value="81"/><column index="6" value="99"/><column index="7" value="89"/><column index="8" value="168"/><column index="9" value="114"/><column index="10" value="123"/><column index="11" value="62"/><column index="12" value="54"/><column index="13" value="38"/><column index="14" value="95"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="SavvyCoders_SQL_CleaningLab" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="65"/><column index="2" value="233"/><column index="3" value="86"/><column index="4" value="89"/><column index="5" value="81"/><column index="6" value="99"/><column index="7" value="89"/><column index="8" value="168"/><column index="9" value="114"/><column index="10" value="123"/><column index="11" value="62"/><column index="12" value="54"/><column index="13" value="38"/><column index="14" value="95"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="evCars" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="70"/><column index="2" value="186"/><column index="3" value="53"/><column index="4" value="61"/><column index="5" value="49"/><column index="6" value="170"/><column index="7" value="145"/><column index="8" value="145"/><column index="9" value="98"/><column index="10" value="98"/><column index="11" value="63"/><column index="12" value="54"/><column index="13" value="38"/><column index="14" value="58"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="Homework 7.sql">-- 1. Using EVregistry, Write a query to select the ModelYear, Make, and Model off all of the vehicles in the registry.
+
+SELECT ModelYear, Make, Model
+FROM EVRegistry
+
+-- 2. Using the EVRegistry table, Write a query that lists all of the unique types of EV's. your reult set should have one column, ElectricVehicleType.
+
+SELECT DISTINCT ElectricVehicleType
+FROM EVRegistry;
+
+-- 3.  Using the EVregistry, write a query that returns the Make and Model of all of the EV's that have a BaseMSRP between 20000 and 35000?
+SELECT *
+FROM EVRegistry
+WHERE ElectricVehicleType = &quot;Battery Electric Vehicle (BEV)&quot;
+
+4. Using the EVRegistry, write a query that returns the Make and Model of all of the EV's that have a BaseMSRP between 20000 and 35000?
+
+-- SELECT DISTINCT Make, Model
+-- FROM EVRegistry
+-- WHERE BaseMSRP BETWEEN 20000 AND 35000
+-- 
+-- -- 7.2
+-- -- 1. Using EVRegistry, write a query to find a record where the City attribute is NULL. Return all of the available columns.
+-- SELECT *
+-- FROM EVRegistry
+-- WHERE City IS NULL
+-- 
+-- -- 2. Write a query to find the Make, Model, and ElectricVehicleType where the VIN number has that ends in '3E1EA1J'.
+-- SELECT Make, Model, ElectricVehicleType
+-- FROM EVRegistry
+-- WHERE VIN like &quot;%3E1EA1J&quot;
+-- 
+-- -- 3.  Select the ModelYear, Make, Model, ElectricVehicleType, and range of the Tesla vehicles or Chevrolet vehicles in the registry. Order the result set by Make and Model year in from newest to oldest.
+-- SELECT ModelYear, Make, Model, ElectricVehicleType, ElectricRange
+-- FROM EVRegistry
+-- WHERE Make = &quot;CHEVROLET&quot; OR Make = &quot;TESLA”
+-- ORDER BY Make, 
+-- -- ModelYear DESC
+-- -- 
+-- -- -- 4. Using EVCharging, Write a query to find out how many many times those stations were used. Order them by the most used to the least used and limit the output to 5 records.
+-- -- SELECT stationId, 
+-- -- count(*) as Charges
+-- -- From EVCharging
+-- -- GROUP by stationId
+-- -- ORDER by Charges DESC
+-- -- LIMIT 5
+-- -- 
+-- -- -- 5. Using EVCharging, For the folks who charged longer than 0.5 hours, show the min and max of the charging time for each user. Your output columns should be userid, minTime, and maxTime. Order this result set by the last two columns respectively.
+-- -- 
+-- -- SELECT DISTINCT userId, 
+-- MIN(chargeTimeHrs) as minHrs, 
+-- MAX(chargeTimeHrs) as maxHrs
+-- FROM EVCharging
+-- WHERE chargeTimeHrs &gt; 0.5
+-- GROUP by userId
+-- ORDER by minHrs, maxHrs
+-- 
+-- -- 7.3
+-- -- 1. Using EVCharging, Which day of the week has the highest average charging time? Round the answer to 2 decimal points.
+
+SELECT weekday, 
+round(AVG(chargeTimeHrs),2) as AvgChargeTime
+FROM EVCharging
+GROUP by weekday
+ORDER by AvgChargeTime DESC
+LIMIT 1
+
+-- 2. Using, EV charging, Find the total power consumed from charging EV's by each User. Return the userId and name the calculated column, totalPower. Round the answer to 2 decimal points and list the out put in highest to lowest order. Limit the order to the top 15 users.
+-- 
+-- SELECT userId, round(AVG(kwhTotal),2) as totalPower
+-- FROM EVCharging
+-- GROUP by userId
+-- ORDER by totalPower DESC
+-- LIMIT 15;
+-- 
+-- -- 3. Using dimfacility and factCharge, write a query to find out which type of facility (GROUP BY) has the most amount of charging stations. Return type Facility and name the calculated column numStation. Order the result set from highest to lowest number of charging stations.
+-- 
+SELECT dimFacility.typeFacility as 'Type of Facility', 
+count(factcharge.stationId) as 'NumStation'
+FROM dimFacility
+INNER join factCharge 
+ON dimFacility.FacilityKey = factCharge.facilityID
+GROUP by dimFacility.typeFacility
+ORDER by count(factCharge.stationId) DESC
+-- 
+-- -- 4.  In your own words, Briefly explain Primary Keys and Foreign Keys.
+-- Foreign key is a reference to a primary key. Primary key are created from the local source. 
+
+-- 5. Using EV Charging, For the folks who charged longer than one hour, show the min and max of the charging time for each user. Your output columns should be userid, minTime, and maxTime. Order this result set by the last two columns respectively. HINT: USE HAVING
+SELECT userId, 
+MIN(chargeTimeHrs) as minTime, 
+MAX(chargeTimeHrs) as maxTime
+FROM EVCharging
+GROUP BY userId
+HAVING chargeTimeHrs &gt; 1
+ORDER BY 2, 3 DESC</sql><sql name="Activity for HW.sql">Look at data 
+-- 
+-- SELECT *
+-- FROM evCars
+-- LIMIT 25;
+-- 
+-- SELECT Brand,
+-- avg(Accel)
+-- FROM evCars
+-- GROUP by Brand
+-- limit 25;
+-- 
+-- SELECT Accel FROM evCars
+-- 
+-- SELECT Accel, RTRIM(Accel, '  sec') 
+-- FROM evCars
+update evCars
+SET Accel = RTRIM(Accel, '  sec') 
+
+SELECT Accel from evCars
+
+Alter table evCars
+RENAME Accel to AccelSec
+
+-- 2.2 Selecting the correct String Function
+SELECT TopSpeed  FROM evCars
+
+
+-- update evCars
+-- SET RangeKm = RTRIM(Range, '  km')
+
+--  2.3 Visualizing the Changes before making them
+SELECT TopSpeed, 
+RTRIM(TopSpeed, '  km/h')
+FROM evCars 
+-- 
+--  2.4 UPDATE the records
+update evCars
+SET TopSpeed = RTRIM(TopSpeed, '  km/h');
+
+-- 2.5 Check your work
+
+sELECT TopSpeed  FROM evCars
+
+-- 2.6 Convert the units to MPH
+
+SELECT TopSpeed, round (TopSpeed* 0.621371, 2)
+FROM evCars
+
+UPDATE evCar 
+SET TopSpeed = TopSpeed * 0.621371
+
+-- - 2.7 Rename the column
+ALTER TABLE evCars 
+RENAME TopSpeed TO TopSpeedMPH
+
+-- 2.8 Select All of the records to get a look at the whole table with your recent changes.
+SELECT * 
+FROM evCars
+
+-- 3.1 Review the column that you are looking to change
+SELECT Range  FROM evCars
+
+
+--  3.2 Selecting the correct String Function
+SELECT Range,
+RTRIM(Range, ' km')
+FROM evCars 
+
+-- - 3.4 UPDATE the records
+- update evCars
+-- SET RangeKm = RTRIM(Range, '  km')
+
+-- 3.5 Check your work
+SELECT Range, RTRIM(Range, '  km')  FROM evCars
+
+--  3.6 Convert the units to MPH
+ 
+ SELECT Range, round (Range* 0.621371, 1)
+FROM evCars
+
+-- 3.7 Rename the column
+ALTER TABLE evCars
+RENAME Range to  RangeMiles
+
+-- 3.8 Select All of the records to get a look at the whole table with your recent changes.
+SELECT * 
+FROM evCars
+
+-- - 4.1 Write a select statement to review both of the columns that you are looking to change
+ SELECT Efficiency, FastCharge  FROM evCars
+
+--  4.2 Selecting the correct String Function that we need to remove for each column.
+
+SELECT Efficiency, FastCharge,
+RTRIM( Efficiency,'  Wh/km'), rtrim(FastCharge, 'km/h')
+FROM evCars ;
+
+-- - 4.4 UPDATE the records
+UPDATE evCars
+SET 
+Efficiency = RTRIM( Efficiency,'  Wh/km')
+,FastCharge = rtrim(FastCharge, 'km/h');
+
+--  4.5 Check your work
+ SELECT Efficiency, FastCharge  FROM evCars
+ 
+--  - 4.6 Convert the FastCharge units to MPH
+SELECT FastCharge, round (FastCharge* 0.621371, 1)
+FROM evCars
+
+UPDATE evCars
+SET FastCharge = round (FastCharge* 0.621371, 1)
+
+-- 4.7 Rename the column
+
+ALTER TABLE evCars
+RENAME FastCharge to  OneHourFastChargeMiles 
+
+ALTER TABLE evCars
+RENAME Efficiency to  efficiencyWHperKM
+
+
+-- 4.8 Select All of the records to get a look at the whole table with your recent changes. 
+SELECT * 
+FROM evCars
+
+-- # SECTION 5 
+
+-- 
+-- ### - 5.1 Working with `RapidCharge`
+-- - Write a query that selects `RapidCharge` and counts all the records based on that attribute. (HINT: Remember GROUP BY from SQL Lesson 7.2)
+-- - Take note of the counts for each unique attriute. You should use this to make sure that you are changing the correct number of rows with your update statement. 
+-- 
+SELECT RapidCharge, count(*)
+FROM evCars
+group by RapidCharge
+
+-- ### - 5.2 making data cleaning choices 
+-- - This attribute or column designates if the car had Rapid charging capability. 
+-- - we are going to simplify the records 
+--     - this can be done in a few different ways
+--         1. you can make the values a boolean: either True or False
+--         2. you can make the values a 1 for yes they are rapid charge capable or a 0 for no they are not capable. 
+--         3. or you can do a yes or no. 
+
+
+-- &lt;br&gt;
+-- 
+-- ### - 5.3 Please fill in the blank on your .md answer sheet
+-- - For the purpose of this exercise, if the car's `RapidCharge` value equals _________________ then I want you to change the value to 'Yes' 
+-- - If the `RapidCharge` value equals _______________ then I want you to change the value to 'No'. 
+-- &lt;br&gt;
+-- 
+-- ```SQL
+-- --write sql code here
+
+Rapid charging not possible = No
+Rapid charging possible= Yes
+-- ```
+-- ### - 5.2 Writing the update Statements  
+-- - use this syntax reminder to help guide your update statement writing
+-- - you are going to write two update statements, one for each of the conditions described above. 
+-- &lt;br&gt;
+-- 
+-- 
+-- ```SQL
+UPDATE evCars
+SET RapidCharge = 'No'
+WHERE RapidCharge = 'Rapid charging not possible';
+
+UPDATE evCars
+SET RapidCharge = 'Yes'
+WHERE RapidCharge = 'Rapid charging not possible'; 
+-- 
+-- # SECTION 6 
+-- ### -6.1 Visualize the `Powertrain` records
+-- - Write a query that selects `PowerTrain` and counts all the records. (HINT: Remember GROUP BY from SQL Lesson 7.2)
+-- - Take note of the counts for each unique attriute. You should use this to make sure that you are changing the correct number of rows with your update statement. 
+-- &lt;br&gt;
+
+SELECT PowerTrain, count (*) 
+FROM evCars
+Group by PowerTrain
+-- 
+-
+-- ```
+-- 
+-- ### - 6.2 Please fill in the blank on your .md answer sheet
+-- - look at the three DISTINCT values from the query you wrote in 6.1 and fill in the blanks.
+-- - If the PowerTrain equals 'All Wheel Drive' then I want you to change the value to 'AWD'
+-- - If the PowerTrain equals __'Front Wheel Drive'__ then I want you to change the value to 'RWD'
+-- - If the PowerTrain equals ___'Rear Wheel Drive'__ then I want you to change the value to 'FWD'
+
+-- 
+-- ### - 6.3 Write three update statements for the three different conditions 
+-- 
+UPdate evCars
+Set PowerTrain= 'AWD'
+WHERE PowerTrain = 'All Wheel Drive';
+
+UPdate evCars
+Set PowerTrain= 'FWD'
+WHERE PowerTrain = 'Front Wheel Drive';
+
+UPdate evCars
+Set PowerTrain= 'RWD'
+WHERE PowerTrain = 'Rear Wheel Drive';
+
+-- ### - 6.4 Write a query to Select all of the records to view your changes. 
+-- 
+SELECT*
+From evCars
+
+-- 
+-- # SECTION 7 
+-- 
+-- ### - 7.1 Convert the `PriceEuro` to `PriceUSD` 
+-- - Let's convert the `PriceEuro` into US Dollar  
+-- - Write a select statement to multiply the `PriceEuro` by 1.09 and Return `PriceEuro` and calculated column. Round the calculated column to 2 decimal places. 
+-- - After writing and executing the above query to see the original and the converted values, review them side by side and if satisfied then move to the next step
+-- 
+
+SELECT PriceEuro, round((PriceEuro * 1.09),2) As PriceUSD
+FROM evCars
+
+-- ### - 7.2 Write the Update Statements 
+-- - Turn this query into an UPDATE statement. Remember to round the calculation to two decimal points. 
+-- - Write a select query from to check the PriceEuro column 
+UPDATE evCars
+SET PriceEuro =  round((PriceEuro * 1.09),2);
+
+SELECT PriceEuro
+from  evCars
+
+
+-- ### - 7.3 Rename the Column
+ALTER TABLE evCars
+RENAME PriceEuro to  PriceUSD
+</sql><current_tab id="1"/></tab_sql></sqlb_project>
